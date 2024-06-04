@@ -128,7 +128,7 @@ instructions from the [documentation][mac-filesharing] to add more locations.
 ## Usage
 
 > [!WARNING]
-> You must rebuild the stack images with `docker-compose build` whenever you switch branch or update the
+> You must rebuild the stack images with `docker compose build` whenever you switch branch or update the
 > [version](#version-selection) of an already existing stack.
 
 ### Bringing up the stack
@@ -142,13 +142,13 @@ git clone https://github.com/deviantony/docker-elk.git
 Then, initialize the Elasticsearch users and groups required by docker-elk by executing the command:
 
 ```sh
-docker-compose up setup
+docker compose up setup
 ```
 
 If everything went well and the setup completed without error, start the other stack components:
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
 > [!NOTE]
@@ -186,15 +186,15 @@ reset the passwords of all aforementioned Elasticsearch users to random secrets.
     of them.
 
     ```sh
-    docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user elastic
+    docker compose exec elasticsearch bin/elasticsearch-reset-password --batch --user elastic
     ```
 
     ```sh
-    docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user logstash_internal
+    docker compose exec elasticsearch bin/elasticsearch-reset-password --batch --user logstash_internal
     ```
 
     ```sh
-    docker-compose exec elasticsearch bin/elasticsearch-reset-password --batch --user kibana_system
+    docker compose exec elasticsearch bin/elasticsearch-reset-password --batch --user kibana_system
     ```
 
     If the need for it arises (e.g. if you want to [collect monitoring information][ls-monitoring] through Beats and
@@ -223,7 +223,7 @@ reset the passwords of all aforementioned Elasticsearch users to random secrets.
 1. Restart Logstash and Kibana to re-connect to Elasticsearch using the new passwords
 
     ```sh
-    docker-compose up -d logstash kibana
+    docker compose up -d logstash kibana
     ```
 
 > [!NOTE]
@@ -260,7 +260,7 @@ Elasticsearch data is persisted inside a volume by default.
 In order to entirely shutdown the stack and remove all persisted data, use the following Docker Compose command:
 
 ```sh
-docker-compose down -v
+docker compose down -v
 ```
 
 ### Version selection
@@ -269,7 +269,7 @@ This repository stays aligned with the latest version of the Elastic stack. The 
 version (8.x).
 
 To use a different version of the core Elastic components, simply change the version number inside the [`.env`](.env)
-file. If you are upgrading an existing stack, remember to rebuild all container images using the `docker-compose build`
+file. If you are upgrading an existing stack, remember to rebuild all container images using the `docker compose build`
 command.
 
 > [!IMPORTANT]
@@ -359,7 +359,7 @@ To run the setup container again and re-initialize all users for which a passwor
 simply "up" the `setup` Compose service again:
 
 ```console
-$ docker-compose up setup
+$ docker compose up setup
  ⠿ Container docker-elk-elasticsearch-1  Running
  ⠿ Container docker-elk-setup-1          Created
 Attaching to docker-elk-setup-1
@@ -393,7 +393,7 @@ To add plugins to any ELK component you have to:
 
 1. Add a `RUN` statement to the corresponding `Dockerfile` (eg. `RUN logstash-plugin install logstash-filter-json`)
 1. Add the associated plugin code configuration to the service configuration (eg. Logstash input/output)
-1. Rebuild the images using the `docker-compose build` command
+1. Rebuild the images using the `docker compose build` command
 
 ### How to enable the provided extensions
 
